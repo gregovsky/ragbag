@@ -1,0 +1,299 @@
+appClass: info.magnolia.ui.contentapp.ContentApp
+class: info.magnolia.ui.api.app.registry.ConfiguredAppDescriptor
+icon: icon-add-tag-2
+label: Discount Codes
+
+subApps:
+
+### BROWSER ###
+
+  browser:
+    subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
+    class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
+    label: discountCodes
+    workbench:
+      dropConstraintClass: info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint
+      editable: false
+      contentViews:
+        - name: tree
+          class: info.magnolia.ui.workbench.tree.TreePresenterDefinition
+          columns:
+            - name: name
+              propertyName: jcrName
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: discount
+              label: discount $
+              propertyName: discount
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: discountPerc
+              label: discount %
+              propertyName: discountPerc
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: status
+              formatterClass: info.magnolia.ui.workbench.column.StatusColumnFormatter
+              width: 46
+              class: info.magnolia.ui.workbench.column.definition.StatusColumnDefinition
+
+    contentConnector:
+      workspace: discountCodes
+      defaultOrder: jcrName
+      rootPath: /
+      nodeTypes:
+        - name: discountCode
+          icon: icon-node-content
+
+    actionbar:
+      defaultAction: delegateByNodeTypeAction
+      sections:
+        - name: root
+          label: discountCode
+          availability:
+            multiple: false
+            nodes: false
+            root: true
+          groups:
+            - name: addActions
+              items:
+                - name: adddiscountCode
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+        - name: discountCode
+          label: discountCode
+          availability:
+            multiple: false
+            nodes: true
+            root: false
+            nodeTypes:
+              discountCode: discountCode
+          groups:
+            - name: addActions
+              items:
+                - name: confirmDeletion
+            - name: editActions
+              items:
+                - name: editdiscountCode
+            - name: duplicateActions
+              items:
+                - name: duplicate
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+                - name: activateRecursive
+            - name: versions
+              items:
+                - name: showVersions
+                - name: restorePreviousVersion
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+
+        - name: multipleItems
+          label: configuration.browser.actionbar.sections.multiple.label
+          availability:
+            multiple: true
+            nodes: true
+            root: false
+          groups:
+            - name: deleteActions
+              items:
+                - name: confirmDeleteItems
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+                - name: activateRecursive
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+            - name: versions
+              items:
+                - name: showVersions
+                - name: restorePreviousVersion
+    actions:
+      activate:
+        command: activate
+        icon: icon-publish
+        catalog: versioned
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          multiple: false
+          root: false
+      activateRecursive:
+        recursive: true
+        command: activate
+        icon: icon-publish-incl-sub
+        catalog: versioned
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          multiple: false
+          root: false
+      deactivate:
+        command: deactivate
+        icon: icon-unpublish
+        catalog: versioned
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          multiple: false
+          root: false
+      export:
+        command: export
+        icon: icon-export
+        class: info.magnolia.ui.framework.action.ExportActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+          root: false
+      import:
+        icon: icon-import
+        dialogName: ui-admincentral:import
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+          root: true
+      delete:
+        command: markAsDeleted
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.MarkNodeAsDeletedActionDefinition
+        availability:
+          multiple: false
+          root: false
+      adddiscountCode:
+        subAppId: detail
+        label: Add discountCode
+        icon: icon-add-item
+        appName: discountCodes
+        class: info.magnolia.ui.contentapp.detail.action.CreateItemActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+          root: true
+      confirmDeletion:
+        successActionName: delete
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
+        availability:
+          multiple: true
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+          root: true
+      confirmDeleteItems:
+        successActionName: delete
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
+        availability:
+          multiple: false
+          root: false
+      editdiscountCode:
+        subAppId: detail
+        label: Edit discountCode
+        icon: icon-edit
+        appName: discountCodes
+        class: info.magnolia.ui.contentapp.detail.action.EditItemActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+          root: false
+      restorePreviousVersion:
+        icon: icon-undo
+        class: info.magnolia.ui.contentapp.detail.action.RestorePreviousVersionActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: hasVersionsRule
+              implementationClass: info.magnolia.ui.framework.availability.HasVersionsRule
+          root: false
+      activateDeleted:
+        command: activate
+        icon: icon-publish
+        catalog: versioned
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: IsDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+          root: false
+
+      confirmDeleteFolder:
+        successActionName: deleteFolder
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+          root: false
+
+
+      duplicate:
+        icon: icon-duplicate
+        class: info.magnolia.ui.framework.action.DuplicateNodeActionDefinition
+        availability:
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+
+      expandNodeAction:
+        class: info.magnolia.ui.contentapp.browser.action.ExpandNodeActionDefinition
+
+      delegateByNodeTypeAction:
+        class: info.magnolia.ui.contentapp.browser.action.DelegateByNodeTypeActionDefinition
+        nodeTypeToActionMappings:
+          item:
+            action: editdiscountCode
+            nodeType: discountCode
+
+
+### DETAIL / DIALOG ###
+
+  detail:
+    subAppClass: info.magnolia.ui.contentapp.detail.DetailSubApp
+    class: info.magnolia.ui.contentapp.detail.DetailSubAppDescriptor
+    editor:
+      form:
+        i18nBasename: info.magnolia.module.data.messages
+        tabs:
+          - name: mainTab
+            label: 'Main'
+            fields:
+
+              - name: name
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: code
+              - name: discount
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Discount $
+              - name: discountPerc
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Discount %
+
+      actions:
+        - name: commit
+        - name: cancel
+      nodeType:
+        name: discountCode
+
+    actions:
+      commit:
+        class: info.magnolia.ui.form.action.SaveFormActionDefinition
+      cancel:
+        class: info.magnolia.ui.form.action.CancelFormActionDefinition
+
+    contentConnector:
+      workspace: discountCodes

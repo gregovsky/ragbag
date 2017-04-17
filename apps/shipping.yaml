@@ -1,0 +1,299 @@
+appClass: info.magnolia.ui.contentapp.ContentApp
+class: info.magnolia.ui.api.app.registry.ConfiguredAppDescriptor
+icon: icon-share
+label: Shipping
+
+subApps:
+
+### BROWSER ###
+
+  browser:
+    subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
+    class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
+    label: products
+    workbench:
+      dropConstraintClass: info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint
+      editable: false
+      contentViews:
+        - name: tree
+          class: info.magnolia.ui.workbench.tree.TreePresenterDefinition
+          columns:
+            - name: name
+              propertyName: name
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: price
+              label: price
+              propertyName: price
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: freeFrom
+              label: free from
+              propertyName: freeFrom
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: status
+              formatterClass: info.magnolia.ui.workbench.column.StatusColumnFormatter
+              width: 46
+              class: info.magnolia.ui.workbench.column.definition.StatusColumnDefinition
+
+    contentConnector:
+      workspace: shippings
+      defaultOrder: jcrName
+      rootPath: /
+      nodeTypes:
+        - name: shipping
+          icon: icon-node-content
+
+    actionbar:
+      defaultAction: delegateByNodeTypeAction
+      sections:
+        - name: root
+          label: shipping
+          availability:
+            multiple: false
+            nodes: false
+            root: true
+          groups:
+            - name: addActions
+              items:
+                - name: addshipping
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+        - name: shipping
+          label: shipping
+          availability:
+            multiple: false
+            nodes: true
+            root: false
+            nodeTypes:
+              shipping: shipping
+          groups:
+            - name: addActions
+              items:
+                - name: confirmDeletion
+            - name: editActions
+              items:
+                - name: editshipping
+            - name: duplicateActions
+              items:
+                - name: duplicate
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+                - name: activateRecursive
+            - name: versions
+              items:
+                - name: showVersions
+                - name: restorePreviousVersion
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+
+        - name: multipleItems
+          label: configuration.browser.actionbar.sections.multiple.label
+          availability:
+            multiple: true
+            nodes: true
+            root: false
+          groups:
+            - name: deleteActions
+              items:
+                - name: confirmDeleteItems
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+                - name: activateRecursive
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+            - name: versions
+              items:
+                - name: showVersions
+                - name: restorePreviousVersion
+    actions:
+      activate:
+        command: activate
+        icon: icon-publish
+        catalog: versioned
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          multiple: false
+          root: false
+      activateRecursive:
+        recursive: true
+        command: activate
+        icon: icon-publish-incl-sub
+        catalog: versioned
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          multiple: false
+          root: false
+      deactivate:
+        command: deactivate
+        icon: icon-unpublish
+        catalog: versioned
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          multiple: false
+          root: false
+      export:
+        command: export
+        icon: icon-export
+        class: info.magnolia.ui.framework.action.ExportActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+          root: false
+      import:
+        icon: icon-import
+        dialogName: ui-admincentral:import
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+          root: true
+      delete:
+        command: markAsDeleted
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.MarkNodeAsDeletedActionDefinition
+        availability:
+          multiple: false
+          root: false
+      addshipping:
+        subAppId: detail
+        label: Add shipping
+        icon: icon-add-item
+        appName: shipping
+        class: info.magnolia.ui.contentapp.detail.action.CreateItemActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+          root: true
+      confirmDeletion:
+        successActionName: delete
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
+        availability:
+          multiple: true
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+          root: true
+      confirmDeleteItems:
+        successActionName: delete
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
+        availability:
+          multiple: false
+          root: false
+      editshipping:
+        subAppId: detail
+        label: Edit shipping
+        icon: icon-edit
+        appName: shipping
+        class: info.magnolia.ui.contentapp.detail.action.EditItemActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+          root: false
+      restorePreviousVersion:
+        icon: icon-undo
+        class: info.magnolia.ui.contentapp.detail.action.RestorePreviousVersionActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: hasVersionsRule
+              implementationClass: info.magnolia.ui.framework.availability.HasVersionsRule
+          root: false
+      activateDeleted:
+        command: activate
+        icon: icon-publish
+        catalog: versioned
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: IsDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+          root: false
+
+      confirmDeleteFolder:
+        successActionName: deleteFolder
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+          root: false
+
+
+      duplicate:
+        icon: icon-duplicate
+        class: info.magnolia.ui.framework.action.DuplicateNodeActionDefinition
+        availability:
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+
+      expandNodeAction:
+        class: info.magnolia.ui.contentapp.browser.action.ExpandNodeActionDefinition
+
+      delegateByNodeTypeAction:
+        class: info.magnolia.ui.contentapp.browser.action.DelegateByNodeTypeActionDefinition
+        nodeTypeToActionMappings:
+          item:
+            action: editshipping
+            nodeType: shipping
+
+
+### DETAIL / DIALOG ###
+
+  detail:
+    subAppClass: info.magnolia.ui.contentapp.detail.DetailSubApp
+    class: info.magnolia.ui.contentapp.detail.DetailSubAppDescriptor
+    editor:
+      form:
+        i18nBasename: info.magnolia.module.data.messages
+        tabs:
+          - name: mainTab
+            label: 'Main'
+            fields:
+
+              - name: name
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Name
+              - name: price
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Price
+              - name: freeFrom
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: FreeFrom
+
+      actions:
+        - name: commit
+        - name: cancel
+      nodeType:
+        name: shipping
+
+    actions:
+      commit:
+        class: info.magnolia.ui.form.action.SaveFormActionDefinition
+      cancel:
+        class: info.magnolia.ui.form.action.CancelFormActionDefinition
+
+    contentConnector:
+      workspace: shippings

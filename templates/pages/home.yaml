@@ -1,0 +1,35 @@
+title: Ragbag Home
+templateScript: /ragbag/templates/pages/home.ftl
+renderType: freemarker
+dialog: ragbag:pages/home
+visible: true
+
+
+areas:
+
+  navigation:
+    templateScript: /ragbag/templates/areas/navigation.ftl
+    editable: false
+
+  intro:
+    templateScript: /ragbag/templates/areas/intro.ftl
+    dialog: ragbag:areas/intro
+
+  main:
+    availableComponents:
+      product-banner:
+        id: ragbag:components/product-banner
+      section:
+        id: ragbag:components/section
+
+  cart:
+    templateScript: /ragbag/templates/areas/cart.ftl
+
+  footer:
+    templateScript: /ragbag/templates/areas/footer.ftl
+    dialog: ragbag:areas/footer
+    areas:
+      links:
+        availableComponents:
+          link:
+            id: btk:components/link

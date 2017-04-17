@@ -1,0 +1,48 @@
+//
+// Forms
+// --------------------------------------------------
+
+@input-height-base: 42px;
+
+.form {
+    .form-row {
+        margin-bottom: 30px;
+
+        lable {
+            display: block;
+        }
+        input[type="text"], textarea {
+            display: block;
+            width: 100%;
+            height: 42px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            background-image: none;
+            border-radius: 4px;
+            -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
+            border: 1px solid #eee;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: white;
+            color: #555555;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+    }
+
+
+    input[type="submit"] {
+        #button .btn(
+                @brand-primary,
+                @brand-primary,
+                transparent,
+                transparent,
+                @brand-primary,
+                @brand-primary)
+    }
+}

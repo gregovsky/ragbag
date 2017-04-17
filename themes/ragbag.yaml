@@ -1,0 +1,6 @@
+imaging:
+  variations:
+    "360x360":
+      class: info.magnolia.templating.imaging.variation.SimpleResizeVariation
+      width: 360
+      height: 360

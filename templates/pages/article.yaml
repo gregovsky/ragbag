@@ -1,0 +1,39 @@
+title: Ragbag Article
+templateScript: /ragbag/templates/pages/home.ftl
+renderType: freemarker
+dialog: ragbag:pages/home
+visible: true
+
+
+areas:
+
+  navigation:
+    templateScript: /ragbag/templates/areas/navigation.ftl
+    editable: false
+    parameters:
+      navClass: navbar__initial
+
+#  intro:
+#    templateScript: /ragbag/templates/areas/intro.ftl
+#    dialog: ragbag:areas/intro
+
+  main:
+    availableComponents:
+#      product-banner:
+#        id: ragbag:components/product-banner
+      section:
+        id: ragbag:components/section
+
+#  cart:
+#    templateScript: /ragbag/templates/areas/cart.ftl
+
+  footer:
+    templateScript: /ragbag/templates/areas/footer.ftl
+    inheritance:
+      enabled: true
+      components: all
+    areas:
+      links:
+        inheritance:
+          enabled: true
+          components: all

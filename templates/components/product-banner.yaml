@@ -1,0 +1,8 @@
+title: "Product banner"
+renderType: freemarker
+templateScript: /ragbag/templates/components/product-banner.ftl
+dialog: ragbag:components/product-banner
+
+variations:
+  js:
+    templateScript: /ragbag/templates/components/product-banner.js

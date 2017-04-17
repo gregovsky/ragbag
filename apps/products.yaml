@@ -1,0 +1,395 @@
+appClass: info.magnolia.ui.contentapp.ContentApp
+class: info.magnolia.ui.api.app.registry.ConfiguredAppDescriptor
+icon: icon-tags
+label: Products
+
+subApps:
+
+### BROWSER ###
+
+  browser:
+    subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
+    class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
+    label: products
+    workbench:
+      dropConstraintClass: info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint
+      editable: false
+      contentViews:
+        - name: tree
+          class: info.magnolia.ui.workbench.tree.TreePresenterDefinition
+          columns:
+            - name: name
+              propertyName: name
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: status
+              formatterClass: info.magnolia.ui.workbench.column.StatusColumnFormatter
+              width: 46
+              class: info.magnolia.ui.workbench.column.definition.StatusColumnDefinition
+            - name: moddate
+              formatterClass: info.magnolia.ui.workbench.column.DateColumnFormatter
+              propertyName: mgnl:lastModified
+              width: 160
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+        - name: list
+          class: info.magnolia.ui.workbench.list.ListPresenterDefinition
+          columns:
+            - name: name
+              propertyName: jcrName
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: path
+              formatterClass: info.magnolia.ui.workbench.column.PathColumnFormatter
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+            - name: status
+              width: 46
+              formatterClass: info.magnolia.ui.workbench.column.StatusColumnFormatter
+              class: info.magnolia.ui.workbench.column.definition.StatusColumnDefinition
+            - name: moddate
+              width: 160
+              formatterClass: info.magnolia.ui.workbench.column.DateColumnFormatter
+              propertyName: mgnl:lastModified
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+        - name: search
+          class: info.magnolia.ui.workbench.search.SearchPresenterDefinition
+          columns:
+            - name: name
+              propertyName: jcrName
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: path
+              formatterClass: info.magnolia.ui.workbench.column.PathColumnFormatter
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+            - name: status
+              formatterClass: info.magnolia.ui.workbench.column.StatusColumnFormatter
+              width: 46
+              class: info.magnolia.ui.workbench.column.definition.StatusColumnDefinition
+            - name: moddate
+              formatterClass: info.magnolia.ui.workbench.column.DateColumnFormatter
+              propertyName: mgnl:lastModified
+              width: 160
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+
+    contentConnector:
+      workspace: products
+      defaultOrder: jcrName
+      rootPath: /
+      nodeTypes:
+        - name: product
+          icon: icon-node-content
+
+    actionbar:
+      defaultAction: delegateByNodeTypeAction
+      sections:
+        - name: root
+          label: product
+          availability:
+            multiple: false
+            nodes: false
+            root: true
+          groups:
+            - name: addActions
+              items:
+                - name: addproduct
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+        - name: product
+          label: product
+          availability:
+            multiple: false
+            nodes: true
+            root: false
+            nodeTypes:
+              product: product
+          groups:
+            - name: addActions
+              items:
+                - name: confirmDeletion
+            - name: editActions
+              items:
+                - name: editproduct
+            - name: duplicateActions
+              items:
+                - name: duplicate
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+                - name: activateRecursive
+            - name: versions
+              items:
+                - name: showVersions
+                - name: restorePreviousVersion
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+
+        - name: multipleItems
+          label: configuration.browser.actionbar.sections.multiple.label
+          availability:
+            multiple: true
+            nodes: true
+            root: false
+          groups:
+            - name: deleteActions
+              items:
+                - name: confirmDeleteItems
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+                - name: activateRecursive
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+            - name: versions
+              items:
+                - name: showVersions
+                - name: restorePreviousVersion
+    actions:
+      showVersions:
+        icon: icon-show-versions
+        class: info.magnolia.ui.contentapp.browser.action.ShowVersionsActionDefinition
+        availability:
+          rules:
+            - name: HasVersionsRule
+              implementationClass: info.magnolia.ui.framework.availability.HasVersionsRule
+      activate:
+        command: activate
+        icon: icon-publish
+        catalog: versioned
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          multiple: false
+          root: false
+      activateRecursive:
+        recursive: true
+        command: activate
+        icon: icon-publish-incl-sub
+        catalog: versioned
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          multiple: false
+          root: false
+      deactivate:
+        command: deactivate
+        icon: icon-unpublish
+        catalog: versioned
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          multiple: false
+          root: false
+      export:
+        command: export
+        icon: icon-export
+        class: info.magnolia.ui.framework.action.ExportActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+          root: false
+      import:
+        icon: icon-import
+        dialogName: ui-admincentral:import
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+          root: true
+      delete:
+        command: markAsDeleted
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.MarkNodeAsDeletedActionDefinition
+        availability:
+          multiple: false
+          root: false
+      addproduct:
+        subAppId: detail
+        label: Add product
+        icon: icon-add-item
+        appName: products
+        class: info.magnolia.ui.contentapp.detail.action.CreateItemActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+          root: true
+      confirmDeletion:
+        successActionName: delete
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
+        availability:
+          multiple: true
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+          root: true
+      confirmDeleteItems:
+        successActionName: delete
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
+        availability:
+          multiple: false
+          root: false
+      editproduct:
+        subAppId: detail
+        label: Edit product
+        icon: icon-edit
+        appName: products
+        class: info.magnolia.ui.contentapp.detail.action.EditItemActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+          root: false
+      restorePreviousVersion:
+        icon: icon-undo
+        class: info.magnolia.ui.contentapp.detail.action.RestorePreviousVersionActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: hasVersionsRule
+              implementationClass: info.magnolia.ui.framework.availability.HasVersionsRule
+          root: false
+      activateDeleted:
+        command: activate
+        icon: icon-publish
+        catalog: versioned
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: IsDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+          root: false
+
+      confirmDeleteFolder:
+        successActionName: deleteFolder
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
+        availability:
+          multiple: false
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+          root: false
+
+
+      duplicate:
+        icon: icon-duplicate
+        class: info.magnolia.ui.framework.action.DuplicateNodeActionDefinition
+        availability:
+          rules:
+            - name: isNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+
+      expandNodeAction:
+        class: info.magnolia.ui.contentapp.browser.action.ExpandNodeActionDefinition
+
+      delegateByNodeTypeAction:
+        class: info.magnolia.ui.contentapp.browser.action.DelegateByNodeTypeActionDefinition
+        nodeTypeToActionMappings:
+          item:
+            action: editproduct
+            nodeType: product
+
+
+### DETAIL / DIALOG ###
+
+  detail:
+    subAppClass: info.magnolia.ui.contentapp.detail.DetailSubApp
+    class: info.magnolia.ui.contentapp.detail.DetailSubAppDescriptor
+    editor:
+      form:
+        i18nBasename: info.magnolia.module.data.messages
+        tabs:
+          - name: mainTab
+            label: 'Main'
+            fields:
+              - name: name
+                label: 'Name'
+                required: true
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+
+              - name: desc
+                label: 'Description'
+                rows: 3
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+#
+#              - name: bio
+#                label: Bio
+#                class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+#
+#              - name: image
+#                appName: assets
+#                description: Select an asset
+#                i18nBasename: info.magnolia.module.templatingkit.messages
+#                label: 'Image'
+#                targetWorkspace: dam
+#                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+#                identifierToPathConverter:
+#                  class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+#                contentPreviewDefinition:
+#                  contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+
+          - name: images
+            label: Images
+            fields:
+              - name: images
+                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+                label: Image
+                field:
+                  name: image
+                  appName: assets
+                  description: Select an asset
+                  i18nBasename: info.magnolia.module.templatingkit.messages
+                  label: 'Image'
+                  targetWorkspace: dam
+                  class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+                  identifierToPathConverter:
+                    class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+                  contentPreviewDefinition:
+                    contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+
+          - name: price
+            label: Variants & prices
+            fields:
+              - name: variants
+                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+                label: Variants
+                transformerClass: info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodePropertiesTransformer
+                field:
+                  name: compositeField
+                  class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
+                  transformerClass: info.magnolia.ui.form.field.transformer.composite.NoOpCompositeTransformer
+                  fields:
+                    - name: variant
+                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                      label: Variant
+                    - name: onstock
+                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                      label: On Stock
+                    - name: price
+                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                      label: Price
+
+      actions:
+        - name: commit
+        - name: cancel
+      nodeType:
+        name: product
+
+    actions:
+      commit:
+        class: info.magnolia.ui.form.action.SaveFormActionDefinition
+      cancel:
+        class: info.magnolia.ui.form.action.CancelFormActionDefinition
+
+    contentConnector:
+      workspace: products

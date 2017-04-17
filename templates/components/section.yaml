@@ -1,0 +1,42 @@
+title: "Section"
+renderType: freemarker
+templateScript: /ragbag/templates/components/section.ftl
+dialog: btk:components/section
+
+parameters:
+  divClass: row
+
+areas:
+  col1: &id0001
+    templateScript: /btk/templates/areas/list.ftl
+    availableComponents:
+      section:
+        id: btk:components/section
+      textImage:
+        id: btk:components/textImage
+      teaser:
+        id: btk:components/teaser
+      image:
+        id: btk:components/image
+      link:
+        id: btk:components/link
+      html:
+        id: btk:components/html
+      carousel:
+        id: btk:components/carousel
+      youtubeVideo:
+        id: btk:components/youtubeVideo
+      form:
+        id: form:components/form
+
+  col2: *id0001
+  col3: *id0001
+  col4: *id0001
+  col5: *id0001
+  col6: *id0001
+  col7: *id0001
+  col8: *id0001
+  col9: *id0001
+  col10: *id0001
+  col11: *id0001
+  col12: *id0001
