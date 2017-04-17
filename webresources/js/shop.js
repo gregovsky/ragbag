@@ -106,7 +106,7 @@ var cartApp = new Vue({
 
                 localStorage.setItem('user', JSON.stringify(this.user));
 
-                var url = "http://localhost:8080/magnoliaAuthor/.rest/nodes/v1/orders";
+                var url = "http://172.104.140.164:8080/magnoliaAuthor/.rest/nodes/v1/orders";
 
                 this.mgnl_friendly_json = mgnl_rest_friendly_flatten({cart: this.cart,
                                                     shipping: this.shippingOptions[this.selectedDelivery].name,
@@ -143,7 +143,7 @@ var cartApp = new Vue({
 
         checkDiscount: function(){
 
-            var url = "http://localhost:8080/magnoliaAuthor/.rest/nodes/v1/discountCodes/"+this.discountCode.toUpperCase()+"?depth=0&excludeNodeTypes=undefined&includeMetadata=false";
+            var url = "http://172.104.140.164:8080/.rest/nodes/v1/discountCodes/"+this.discountCode.toUpperCase()+"?depth=0&excludeNodeTypes=undefined&includeMetadata=false";
 
             this.$http.get(url).then( function(response) {
                 // success callback
