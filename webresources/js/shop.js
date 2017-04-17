@@ -117,7 +117,7 @@ var cartApp = new Vue({
                                                     user: this.user});
 
 
-                this.$http.put(url,this.mgnl_friendly_json).then( function(response) {
+                this.$http.put(url,this.mgnl_friendly_json, {headers: { accept: 'application/json'}}).then( function(response) {
                         if (response.status == 200) {
                             console.log("odeslano");
                             this.dropCart();
