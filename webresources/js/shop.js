@@ -18,7 +18,6 @@ var cartApp = new Vue({
     mounted: function() {
         if(localStorage.getItem('cart')) this.cart =  JSON.parse(localStorage.getItem('cart'));
         if(localStorage.getItem('user')) this.user =  JSON.parse(localStorage.getItem('user'));
-        console.log(this.cart);
     },
     methods: {
 
@@ -143,9 +142,9 @@ var cartApp = new Vue({
 
         checkDiscount: function(){
 
-            var url = "http://172.104.140.164:8080/.rest/nodes/v1/discountCodes/"+this.discountCode.toUpperCase()+"?depth=0&excludeNodeTypes=undefined&includeMetadata=false";
+            var url = "http://172.104.140.164:8080/.rest/nodes/v1/discountCodes/"+this.discountCode.toUpperCase();
 
-            this.$http.get(url).then( function(response) {
+            this.$http.get(url, {headers: { accept: 'application/json'}}).then( function(response) {
                 // success callback
                 if (response.status == 200) {
 
