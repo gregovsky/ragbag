@@ -1,12 +1,12 @@
 var cartApp = new Vue({
     el: '#cartApp',
     data: {
-        cart: JSON.parse(localStorage.getItem('cart')),
+        cart: [],
         test: 'testik',
         shippingOptions: shippingOptions,
         selectedDelivery: -1,
         finalCheckMessages: [],
-        user: (localStorage.getItem('user') != 'null' ? JSON.parse(localStorage.getItem('user')) : {} ),
+        user: {},
         mgnl_friendly_json: null,
         showModal: false,
         modalHeader: "",
@@ -14,6 +14,11 @@ var cartApp = new Vue({
         discountCode: "",
         discount: 0,
         discountPerc: 0,
+    },
+    mounted: function() {
+        if(localStorage.getItem('cart')) this.cart =  JSON.parse(localStorage.getItem('cart'));
+        if(localStorage.getItem('user')) this.user =  JSON.parse(localStorage.getItem('user'));
+        console.log(this.cart);
     },
     methods: {
 
