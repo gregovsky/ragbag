@@ -105,7 +105,7 @@ var cartApp = new Vue({
 
                 localStorage.setItem('user', JSON.stringify(this.user));
 
-                var url = "http://172.104.140.164:8080/magnoliaAuthor/.rest/nodes/v1/orders";
+                var url = "http://www.ragbag.cz/magnoliaAuthor/.rest/nodes/v1/orders";
 
                 this.mgnl_friendly_json = mgnl_rest_friendly_flatten({cart: this.cart,
                                                     shipping: this.shippingOptions[this.selectedDelivery].name,
@@ -117,7 +117,7 @@ var cartApp = new Vue({
                                                     user: this.user});
 
 
-                this.$http.put(url,this.mgnl_friendly_json, {headers: { accept: 'application/json'}}).then( function(response) {
+                this.$http.put(url,this.mgnl_friendly_json, {headers: { 'Accept': 'application/json', "Content-Type": "application/json"},responseType: "json"}).then( function(response) {
                         if (response.status == 200) {
                             console.log("odeslano");
                             this.dropCart();
@@ -142,9 +142,9 @@ var cartApp = new Vue({
 
         checkDiscount: function(){
 
-            var url = "http://172.104.140.164:8080/.rest/nodes/v1/discountCodes/"+this.discountCode.toUpperCase();
+            var url = "http://www.ragbag.cz/.rest/nodes/v1/discountCodes/"+this.discountCode.toUpperCase();
 
-            this.$http.get(url, {headers: { accept: 'application/json'}}).then( function(response) {
+            this.$http.get(url, {headers: { 'Accept': 'application/json', "Content-Type": "application/json"},responseType: "json"}).then( function(response) {
                 // success callback
                 if (response.status == 200) {
 
