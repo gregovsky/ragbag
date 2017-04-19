@@ -37,3 +37,11 @@ areas:
         inheritance:
           enabled: true
           components: all
+
+  headerScripts: &headerScripts
+    createAreaNode: false
+    modelClass: info.magnolia.marketingtags.model.ScriptsAreaModel
+    templateScript: /templates/scriptsArea.ftl
+    type: noComponent
+  bodyEndScripts: *headerScripts
+  bodyBeginScripts: *headerScripts

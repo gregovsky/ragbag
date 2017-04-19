@@ -33,3 +33,11 @@ areas:
         availableComponents:
           link:
             id: btk:components/link
+
+  headerScripts: &headerScripts
+    createAreaNode: false
+    modelClass: info.magnolia.marketingtags.model.ScriptsAreaModel
+    templateScript: /templates/scriptsArea.ftl
+    type: noComponent
+  bodyEndScripts: *headerScripts
+  bodyBeginScripts: *headerScripts
