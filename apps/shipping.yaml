@@ -25,14 +25,22 @@ subApps:
               label: price
               propertyName: price
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+
             - name: freeFrom
               label: free from
               propertyName: freeFrom
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+
+            - name: bankInfo
+              label: bank info
+              propertyName: bankInfo
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+
             - name: status
               formatterClass: info.magnolia.ui.workbench.column.StatusColumnFormatter
               width: 46
               class: info.magnolia.ui.workbench.column.definition.StatusColumnDefinition
+
 
     contentConnector:
       workspace: shippings
@@ -276,12 +284,19 @@ subApps:
               - name: name
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Name
+
               - name: price
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Price
+
               - name: freeFrom
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: FreeFrom
+
+              - name: bankInfo
+                class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+                label: Bank Info
+                buttonLabel: Select to display bank payment info after sending order
 
       actions:
         - name: commit

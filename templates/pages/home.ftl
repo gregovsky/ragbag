@@ -30,14 +30,13 @@
 
    </head>
    <body class="classic home ${cmsfn.language()}" data-spy="scroll" data-target=".scrollspy_menu">
-        [@cms.area name="bodyEndScripts"/]
+       [@cms.area name="bodyBeginScripts"/]
 
         [#if !cmsfn.isEditMode()]
         <div class="preloader">
           <img src="${ctx.contextPath}/.resources/ragbag/webresources/img/preloader.gif" alt="Loading..." class="preloader__img">
         </div>
         [/#if]
-
 
         [@cms.area name="navigation" /]
 
@@ -59,7 +58,8 @@
                   "/ragbag/webresources/js/mgnl_rest_friendly_flatten.js",
                   "/ragbag/webresources/js/shop.js"])!}
 
-        [@cms.area name="bodyBeginScripts"/]
+       [@cms.area name="bodyEndScripts"/]
+
    </body>
 </html>
 [/#compress]

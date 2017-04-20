@@ -107,19 +107,31 @@ var cartApp = new Vue({
 
                 var url = "http://www.ragbag.cz/magnoliaAuthor/.rest/nodes/v1/orders";
 
-                this.mgnl_friendly_json = mgnl_rest_friendly_flatten({cart: this.cart,
-                                                    shipping: this.shippingOptions[this.selectedDelivery].name,
-                                                    shippingPrice: this.shippingPrice(),
-                                                    total: this.inCartValue(),
-                                                    discount: this.discount,
-                                                    totalWithShipping: (this.inCartValue() + this.shippingPrice()),
-                                                    discountCode: this.discountCode,
-                                                    user: this.user});
+                var allDataTogether = {cart: this.cart,
+                                        shipping: this.shippingOptions[this.selectedDelivery].name,
+                                        shippingBankInfo: this.shippingOptions[this.selectedDelivery].bankInfo,
+                                        shippingPrice: this.shippingPrice(),
+                                        total: this.inCartValue(),
+                                        discount: this.discount,
+                                        totalWithShipping: (this.inCartValue() + this.shippingPrice()),
+                                        discountCode: this.discountCode,
+                                        user: this.user};
+
+                this.mgnl_friendly_json = mgnl_rest_friendly_flatten(allDataTogether);
 
 
                 this.$http.put(url,this.mgnl_friendly_json, {headers: { 'Accept': 'application/json', "Content-Type": "application/json"},responseType: "json"}).then( function(response) {
                         if (response.status == 200) {
-                            console.log("odeslano");
+
+                            var url2 = "http://www.ragbag.cz/magnoliaAuthor/.rest/commands/v2/sendMail";
+
+                            var emailData = {"mailTemplate":"ragbag-order","to":"ragbagcz@gmail.com;"+this.user.email,"order":"20170416100150","data":allDataTogether};
+
+                            this.$http.post(url2,emailData, {headers: { 'Accept': 'application/json', "Content-Type": "application/json"},responseType: "json"});
+
+                            //console.log(allDataTogether);
+
+                            //console.log("odeslano");
                             this.dropCart();
                             window.scrollTo(0, 0);
                             this.displayModal("Děkujeme","Vaše objednávka byla úspěšně odeslána.");

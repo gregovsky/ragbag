@@ -101,7 +101,7 @@
                         var shippingOptions = [
                             [#list shippingOptions as option]
                                 [#if option_index != 0],[/#if]
-                                {name:'${option.name!""}',price:${option.price!"0"},freeFrom:${option.freeFrom!"''"}}
+                                {name:'${option.name!""}',price:${option.price!"0"},freeFrom:${option.freeFrom!"''"},bankInfo:'${option.bankInfo?string!"false"}'}
                             [/#list]
                         ]
                         [/#if]
