@@ -13,7 +13,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${ctx.contextPath}/${navfn.rootPage(content)}"><img src="${ctx.contextPath}/.resources/ragbag/webresources/img/logo_ragbag.png" alt="Ragbag logo" class="img-responsive"></a>
+                <a class="navbar-brand" href="http://www.ragbag.cz"><img src="${ctx.contextPath}/.resources/ragbag/webresources/img/logo_ragbag.png" alt="Ragbag logo" class="img-responsive"></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="fullpage__nav nav navbar-nav navbar-right">
@@ -60,7 +60,7 @@
 
         <!-- Sidebar brand name -->
         <div class="sidebar-menu__brand">
-            <a class="navbar-brand" href="${navfn.rootPage(content)}">
+            <a class="navbar-brand" href="http://www.ragbag.cz">
                 <img src="${ctx.contextPath}/.resources/ragbag/webresources/img/logo_ragbag.png" alt="Ragbag logo" class="img-responsive">
             </a>
         </div>

@@ -213,13 +213,15 @@
             </div>
             <div class="row">
 
-                <div class="col-xs-12 text-center">
+                <div class="col-md-6 col-md-offset-3 col-xs-12 text-center">
 
                     <h3 class="heading"><span class="text-primary">Cena celkem:</span></h3>
 
                     <div class="h1">{{ (inCartValue() + shippingPrice()) }} Kč</div>
 
                     <p>Koncová cena včetně DPH.</p>
+
+                    <p>Ještě nám zbývá dořešit několik technických detailů spojených s rozjezdem fan shopu, proto budeme moci veškeré objednávky začít rozesílat až v týdnu od 1. Května. Děkujeme za pochopení.</p>
 
                     <button type="button" class="btn btn-success" v-bind:disabled="!finalCheck()" v-on:click="sendOrder()">Závazně objednat</button>
 
