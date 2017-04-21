@@ -223,7 +223,8 @@
 
                     <p>Ještě nám zbývá dořešit několik technických detailů spojených s rozjezdem fan shopu, proto budeme moci veškeré objednávky začít rozesílat až v týdnu od 1. Května. Děkujeme za pochopení.</p>
 
-                    <button type="button" class="btn btn-success" v-bind:disabled="!finalCheck()" v-on:click="sendOrder()">Závazně objednat</button>
+                    <button type="button" class="btn btn-success"  v-on:click="sendOrder()">Závazně objednat</button>
+
 
                 </div>
 

@@ -19,6 +19,12 @@ var cartApp = new Vue({
         if(localStorage.getItem('cart')) this.cart =  JSON.parse(localStorage.getItem('cart'));
         if(localStorage.getItem('user')) this.user =  JSON.parse(localStorage.getItem('user'));
     },
+    computed: {
+        tooltipText: function() {
+            // put your logic here to change the tooltip text
+            return 'This is a computed tooltip';
+        }
+    },
     methods: {
 
         addToCartFunction: function(id,name,variant,price,pcs){
@@ -142,6 +148,8 @@ var cartApp = new Vue({
                     }
                 );
 
+            } else {
+                this.displayModal("Chybějící údaje",this.finalCheckMessages.join("<br>"));
             }
 
         },
@@ -203,14 +211,14 @@ Vue.component('modal', {
                                     '<slot name="header"><h3>{{ cartApp.modalHeader }}</h3></slot>'+
                                     '<button type="button" class="close" @click="$emit(\'close\')"><span aria-hidden="true">&times;</span></button>' +
                                 '</div>'+
-                                '<div class="modal-body">'+
-                                    '<slot name="body">{{ cartApp.modalBody }}</slot>'+
+                                '<div class="modal-body"v-html="cartApp.modalBody">'+
                                 '</div>'+
                             '</div>'+
                         '</div>'+
                     '</div>'+
                 '</transition>'
-})
+});
+
 
 
 
