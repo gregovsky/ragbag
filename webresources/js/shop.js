@@ -123,7 +123,7 @@ var cartApp = new Vue({
                 this.$http.put(url,this.mgnl_friendly_json, {headers: { 'Accept': 'application/json', "Content-Type": "application/json"},responseType: "json"}).then( function(response) {
                         if (response.status == 200) {
 
-                            var url2 = "http://www.ragbag.cz/magnoliaAuthor/.rest/commands/v2/sendMail";
+                            var url2 = "http://www.ragbag.cz/.rest/commands/v2/sendMail";
 
                             var emailData = {"mailTemplate":"ragbag-order","to":"ragbagcz@gmail.com;"+this.user.email,"order":"20170416100150","data":allDataTogether};
 
