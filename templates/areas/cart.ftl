@@ -101,7 +101,12 @@
                         var shippingOptions = [
                             [#list shippingOptions as option]
                                 [#if option_index != 0],[/#if]
-                                {name:'${option.name!""}',price:${option.price!"0"},freeFrom:${option.freeFrom!"''"},bankInfo:'${option.bankInfo?string!"false"}'}
+                                [#if option.bankInfo?has_content && option.bankInfo == true]
+                                    [#assign bankInfo = "true"]
+                                [#else]
+                                    [#assign bankInfo = "false"]
+                                [/#if]
+                                {name:'${option.name!""}',price:${option.price!"0"},freeFrom:${option.freeFrom!"''"},bankInfo:'${bankInfo!}'}
                             [/#list]
                         ]
                         [/#if]
