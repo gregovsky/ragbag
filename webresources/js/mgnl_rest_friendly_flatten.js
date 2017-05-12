@@ -49,11 +49,22 @@ function flatten_object(obj,propNamePrefix){
 }
 
 function mgnl_rest_friendly_flatten(obj){
+    // ideal for PUT (new node with properties)
     // example of obj: {name:"abc",price:100,user:{name:"John",city:"Basel"}}
 
     var nodeName = new Date().toISOString().replace(/[^0-9.]/g, "").slice(0,14);
 
     mgnl_json = {name: nodeName,type: "order",properties:[]};
+
+    flatten_object(obj,"");
+
+    return mgnl_json;
+}
+
+function mgnl_rest_friendly_flatten_only_properties(obj){
+    // ideal for POST (properties update)
+
+    mgnl_json = {properties:[]};
 
     flatten_object(obj,"");
 

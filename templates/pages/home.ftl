@@ -15,10 +15,8 @@
                      "/ragbag/webresources/plugins/vue-animate/vue-animate.min.css",
                      "/ragbag/webresources/css/.*.css"])!}
 
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-        ${resfn.js(["/ragbag/webresources/js/vue.min.js",
+        ${resfn.js(["/ragbag/webresources/js/jquery.min.js",
+                    "/ragbag/webresources/js/vue.min.js",
                     "/ragbag/webresources/js/vue-resource.min.js"])!}
 
         <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>

@@ -1,0 +1,19 @@
+form:
+ tabs:
+    - name: main
+      label: Main
+      fields:
+
+        - name: messageBeforeSend
+          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+          label: Zpráva před odeslaním
+
+actions:
+  commit:
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+    label: Save
+  cancel:
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
+    label: Cancel
+
+

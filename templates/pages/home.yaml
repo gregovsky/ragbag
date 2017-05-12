@@ -24,6 +24,7 @@ areas:
 
   cart:
     templateScript: /ragbag/templates/areas/cart.ftl
+    dialog: ragbag:areas/cart
 
   footer:
     templateScript: /ragbag/templates/areas/footer.ftl
@@ -41,3 +42,5 @@ areas:
     type: noComponent
   bodyEndScripts: *headerScripts
   bodyBeginScripts: *headerScripts
+
+

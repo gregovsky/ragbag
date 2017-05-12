@@ -224,10 +224,11 @@
 
                     <div class="h1">{{ (inCartValue() + shippingPrice()) }} Kč</div>
 
-                    <p>Koncová cena včetně DPH.</p>
+                    [#if content.messageBeforeSend?has_content]
+                        ${cmsfn.decode(content).messageBeforeSend}
+                    [/#if]
 
                     <button type="button" class="btn btn-success"  v-on:click="sendOrder()">Závazně objednat</button>
-
 
                 </div>
 
