@@ -3,6 +3,7 @@
 <html xml:lang="${cmsfn.language()}" lang="${cmsfn.language()}">
    <head>
         [@cms.page /]
+        <meta HTTP-EQUIV="REFRESH" content="0; url=http://www.ragbag.cz">
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>${content.windowTitle!content.title!}</title>
