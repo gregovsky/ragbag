@@ -6,9 +6,9 @@
                 <div class="col-xs-12">
 
 
-                    <h1 class="heading">
+                    <div class="h1 heading">
                         <span class="text-primary">Obsah košíku</span> - {{ inCartValue() }},-
-                    </h1>
+                    </div>
 
                 </div>
             </div>
@@ -220,7 +220,7 @@
 
                 <div class="col-md-6 col-md-offset-3 col-xs-12 text-center">
 
-                    <h3 class="heading"><span class="text-primary">Cena celkem:</span></h3>
+                    <div class="h3 heading"><span class="text-primary">Cena celkem:</span></div>
 
                     <div class="h1">{{ (inCartValue() + shippingPrice()) }} Kč</div>
 
