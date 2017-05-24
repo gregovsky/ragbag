@@ -8,6 +8,7 @@
         <title>${content.windowTitle!content.title!}</title>
         <meta name="description" content="${content.description!""}" />
         <meta name="keywords" content="${content.keywords!""}" />
+        <meta name="author" content="RagBag">
 
         ${resfn.css(["/ragbag/webresources/plugins/lightbox/css/lightbox.min.css",
                      "/ragbag/webresources/plugins/font-awesome/css/font-awesome.min.css",
