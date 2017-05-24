@@ -11,7 +11,10 @@
 [/#if]
 
 
-<div id="product_${productId}" class="site-wrapper [#if backgroundLink?has_content]withBackground[/#if]" style="background-image: url(${ctx.contextPath}/.resources/ragbag/webresources/img/bg-pattern.png), url(${backgroundLink!});">
+<div id="product_${productId}"
+     class="site-wrapper [#if backgroundLink?has_content]withBackground[/#if]"
+     style="background-image: url(${ctx.contextPath}/.resources/ragbag/webresources/img/bg-pattern.png), url(${backgroundLink!});"
+     itemscope itemtype="http://schema.org/Product">
 
 
     <div id="[#if content.toc?has_content]${content.toc?replace(" ","_")?replace("#","")}[/#if]" class="anchor"></div>
@@ -47,7 +50,7 @@
                             [#if damfn.getAssetLink(image)?has_content]
                                 <div class="item [#if image_index == 0]active[/#if]">
                                     <a href="${damfn.getAssetLink(image)!}" data-lightbox="images_${content.@id}" data-title="${product.name!}">
-                                        <img src="${damfn.getAssetLink(image,"360x360")!}" alt="..." class="img-responsive">
+                                        <img src="${damfn.getAssetLink(image,"360x360")!}" alt="..." class="img-responsive" itemprop="image">
                                     </a>
                                 </div>
                             [/#if]
@@ -62,9 +65,9 @@
             <div class="col-sm-6 text-center product" rb-product="${product.name!}" rb-productId="${product.@id!}">
 
 
-                <h2 class="heading">${product.name!}</h2>
+                <h2 class="heading" itemprop="name">${product.name!}</h2>
 
-                <p class="productDesc">
+                <p class="productDesc" itemprop="description">
                     ${product.desc!}
                 </p>
 
