@@ -10,8 +10,6 @@
     [#assign productId = product.@id?substring(0,8)]
 [/#if]
 
-<script src="${cmsfn.link(content)?replace('.html','.js')}"></script>
-
 <div id="product_${productId}"
      class="site-wrapper [#if backgroundLink?has_content]withBackground[/#if]"
      style="background-image: url(${ctx.contextPath}/.resources/ragbag/webresources/img/bg-pattern.png), url(${backgroundLink!});">
@@ -130,4 +128,6 @@
       </script>
 </div>
 
+
+<script src="${cmsfn.link(content)?replace('.html','.js')}"></script>
 [/#compress]
