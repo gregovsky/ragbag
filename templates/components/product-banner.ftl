@@ -10,6 +10,7 @@
     [#assign productId = product.@id?substring(0,8)]
 [/#if]
 
+<script src="${cmsfn.link(content)?replace('.html','.js')}"></script>
 
 <div id="product_${productId}"
      class="site-wrapper [#if backgroundLink?has_content]withBackground[/#if]"
@@ -129,5 +130,4 @@
       </script>
 </div>
 
-<script src="${cmsfn.link(content)?replace('.html','.js')}"></script>
 [/#compress]
