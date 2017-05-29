@@ -61,7 +61,7 @@
                             <thead>
                             <tr>
                                 <th class="col_conf"></th>
-                                <th>Doručení</th>
+                                <th>Sleva (slevový kód)</th>
                                 <th class="col_price"></th>
                             </tr>
                             </thead>
