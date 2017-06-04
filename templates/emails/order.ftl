@@ -48,7 +48,7 @@
         [/#if]
 
         [#if data.shippingBankInfo?has_content && data.shippingBankInfo == "true"]
-            <div style="border: 2px solid #bd0039; padding:8px;">Vybrali jste platbu předem, proto prosím zašlete částku ${data.totalWithShipping},- na účet 1021751043/3030 s variabilním symbolem ${order!} nejpozději do 7mi dnů. Až po přijetí platby Vám zašleme zboží. Děkujeme</div>
+            <div style="border: 2px solid #bd0039; padding:8px;">Vybrali jste platbu předem, proto prosím zašlete částku ${data.totalWithShipping},- na účet 2701224807/2010 s variabilním symbolem ${order!} nejpozději do 7mi dnů. Až po přijetí platby Vám zašleme zboží. Děkujeme</div>
         [/#if]
 
         <h3>Adresa pro doručení:</h3>
@@ -63,7 +63,7 @@
         </div>
 
         <div>
-            Pokud některé z údajů nesouhlasí, prosím kontaktujte nás na ragbagcz@gmail.com nebo +420777565058.
+            Pokud některé z údajů nesouhlasí, prosím kontaktujte nás na ragbagcz@gmail.com nebo +420776503701.
         </div>
         <div>
             Děkujeme za Vaši objednávku.
