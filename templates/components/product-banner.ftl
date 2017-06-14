@@ -10,9 +10,11 @@
     [#assign productId = product.@id?substring(0,8)]
 [/#if]
 
+
 <div id="product_${productId}"
      class="site-wrapper [#if backgroundLink?has_content]withBackground[/#if]"
-     style="background-image: url(${ctx.contextPath}/.resources/ragbag/webresources/img/bg-pattern.png), url(${backgroundLink!});">
+     style="background-image: url(${ctx.contextPath}/.resources/ragbag/webresources/img/bg-pattern.png), url(${backgroundLink!});"
+     itemscope itemtype="http://schema.org/Product">
 
 
     <div id="[#if content.toc?has_content]${content.toc?replace(" ","_")?replace("#","")}[/#if]" class="anchor"></div>
@@ -48,12 +50,10 @@
                             [#if damfn.getAssetLink(image)?has_content]
                                 <div class="item [#if image_index == 0]active[/#if]">
                                     <a href="${damfn.getAssetLink(image)!}" data-lightbox="images_${content.@id}" data-title="${product.name!}">
-                                        <img src="${damfn.getAssetLink(image,"360x360")!}" alt="..." class="img-responsive">
+                                        <img src="${damfn.getAssetLink(image,"360x360")!}" alt="..." class="img-responsive" >
+                                        <span itemprop="image" content="http://www.ragbag.cz${damfn.getAssetLink(image)!}"
                                     </a>
                                 </div>
-                                [#if image_index == 0]
-                                  [#assign teaserImage = damfn.getAssetLink(image)!""]
-                                [/#if]
                             [/#if]
                         [/#list]
                         </div>
@@ -66,9 +66,10 @@
             <div class="col-sm-6 text-center product" rb-product="${product.name!}" rb-productId="${product.@id!}">
 
 
-                <h2 class="heading">${product.name!}</h2>
+                <h2 class="heading" >${product.name!}</h2>
+                <span itemprop="name" content="${product.seoName!product.name!}"></span>
 
-                <p class="productDesc">
+                <p class="productDesc" itemprop="description">
                     ${product.desc!}
                 </p>
 
@@ -83,8 +84,11 @@
                     <div v-if="price > 0" class="productPrice">
                         {{ price }},-
                     </div>
-                    <div v-else class="productPrice">
+                    <div v-else class="productPrice" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                         od {{ lovestPrice }},-
+                        <span itemprop="price" content="300" v-bind:content="lovestPrice" ></span>
+                        <span itemprop="priceCurrency" content="CZK"></span>
+                        <span itemprop="availability" href="http://schema.org/InStock"></span>
                     </div>
                     <div class="productOrder">
                         <span>Koupit kusů:</span>
@@ -100,34 +104,7 @@
 
         </div>
     </div>
-
-    <script type="application/ld+json">
-      {
-        "@context": "http://schema.org/",
-        "@type": "Product",
-        "name": "${product.name!}",
-        "image": "http://www.ragbag.com${teaserImage}",
-        "description": "${product.desc!}",
-        "sku": "${product.@name}",
-        "brand": {
-          "name": "RagBag"
-        },
-        "offers": {
-          "@type": "Offer",
-          "priceCurrency": "CZK",
-          "price": product_${productId}.lovestPrice,
-          "priceValidUntil": "2020-12-31",
-          "itemCondition": "http://schema.org/NewCondition",
-          "availability": "http://schema.org/InStock",
-          "seller": {
-            "@type": "Organization",
-            "name": "RagBag s.r.o."
-          }
-        }
-      }
-      </script>
 </div>
-
 
 <script src="${cmsfn.link(content)?replace('.html','.js')}"></script>
 [/#compress]

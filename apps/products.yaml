@@ -317,6 +317,10 @@ subApps:
                 required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
 
+              - name: seoName
+                label: 'SEO Name'
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+
               - name: desc
                 label: 'Description'
                 rows: 3
