@@ -51,7 +51,9 @@
                                 <div class="item [#if image_index == 0]active[/#if]">
                                     <a href="${damfn.getAssetLink(image)!}" data-lightbox="images_${content.@id}" data-title="${product.name!}">
                                         <img src="${damfn.getAssetLink(image,"360x360")!}" alt="..." class="img-responsive" >
-                                        <span itemprop="image" content="http://www.ragbag.cz${damfn.getAssetLink(image)!}"
+                                        [#if image_index == 0]
+                                          <span itemprop="image" content="http://www.ragbag.cz${damfn.getAssetLink(image)!}"></span>
+                                        [/#if]
                                     </a>
                                 </div>
                             [/#if]
@@ -68,10 +70,25 @@
 
                 <h2 class="heading" >${product.name!}</h2>
                 <span itemprop="name" content="${product.seoName!product.name!}"></span>
+                <span itemprop="brand" itemscope itemtype="http://schema.org/Brand">
+                    <span itemprop="name" content="RagBag"></span>
+                </span>
 
                 <p class="productDesc" itemprop="description">
                     ${product.desc!}
                 </p>
+
+
+                <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                  <span itemprop="price" content="300" v-bind:content="lovestPrice" ></span>
+                  <span itemprop="priceCurrency" content="CZK"></span>
+                  <span itemprop="availability" itemtype="http://schema.org/InStock"></span>
+                  <span itemprop="priceValidUntil" content="2020-12-31"></span>
+                  <span itemprop="itemCondition" itemtype="http://schema.org/NewCondition"></span>
+                  <span itemprop="seller" itemscope itemtype="http://schema.org/Organization">
+                    <span itemprop="name" content="RagBag s.r.o."></span>
+                  </span>
+                </span>
 
                 <div class="hide" v-bind:class="{ show: variants.length > 0 }">
                     <div class="productVariants">
@@ -84,11 +101,8 @@
                     <div v-if="price > 0" class="productPrice">
                         {{ price }},-
                     </div>
-                    <div v-else class="productPrice" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                    <div v-else class="productPrice" >
                         od {{ lovestPrice }},-
-                        <span itemprop="price" content="300" v-bind:content="lovestPrice" ></span>
-                        <span itemprop="priceCurrency" content="CZK"></span>
-                        <span itemprop="availability" href="http://schema.org/InStock"></span>
                     </div>
                     <div class="productOrder">
                         <span>Koupit kusů:</span>
