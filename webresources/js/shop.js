@@ -131,13 +131,10 @@ var cartApp = new Vue({
 
                             var url2 = "http://www.ragbag.cz/.rest/commands/v2/sendMail";
 
-                            var emailData = {"mailTemplate":"ragbag-order","to":"ragbagcz@gmail.com;"+this.user.email,"order":"20170416100150","data":allDataTogether};
+                            var emailData = {"mailTemplate":"ragbag-order","to":"ragbagcz@gmail.com;"+this.user.email,"order":this.mgnl_friendly_json.name,"data":allDataTogether};
 
                             this.$http.post(url2,emailData, {headers: { 'Accept': 'application/json', "Content-Type": "application/json"},responseType: "json"});
 
-                            //console.log(allDataTogether);
-
-                            //console.log("odeslano");
                             this.dropCart();
                             window.scrollTo(0, 0);
                             this.displayModal("Děkujeme","Vaše objednávka byla úspěšně odeslána.");
