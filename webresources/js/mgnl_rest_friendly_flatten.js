@@ -52,7 +52,7 @@ function mgnl_rest_friendly_flatten(obj){
     // ideal for PUT (new node with properties)
     // example of obj: {name:"abc",price:100,user:{name:"John",city:"Basel"}}
 
-    var nodeName = new Date().toISOString().replace(/[^0-9.]/g, "").slice(0,14);
+    var nodeName = new Date().toISOString().replace(/[^0-9.]/g, "").slice(8,14);
 
     mgnl_json = {name: nodeName,type: "order",properties:[]};
 
