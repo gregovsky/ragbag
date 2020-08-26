@@ -14,6 +14,7 @@ var cartApp = new Vue({
         discountCode: "",
         discount: 0,
         discountPerc: 0,
+        domain: window.location.origin
     },
     mounted: function() {
         if(localStorage.getItem('cart')) this.cart =  JSON.parse(localStorage.getItem('cart'));
@@ -30,6 +31,14 @@ var cartApp = new Vue({
         addToCartFunction: function(id,name,variant,price,pcs){
             this.cart.push({id:id,name:name,variant:variant,price:price,pcs:pcs});
             localStorage.setItem('cart', JSON.stringify(this.cart));
+
+            var target = $("#cart");
+            if (target.length) {
+                $('html, body').animate({
+                    scrollTop: target.offset().top
+                }, 1000);
+            }
+
         },
 
         dropCart: function(){
@@ -111,7 +120,7 @@ var cartApp = new Vue({
 
                 localStorage.setItem('user', JSON.stringify(this.user));
 
-                var url = "http://www.ragbag.cz/magnoliaAuthor/.rest/nodes/v1/orders";
+                var url = this.domain+"/magnoliaAuthor/.rest/nodes/v1/orders";
 
                 var allDataTogether = {cart: this.cart,
                                         shipping: this.shippingOptions[this.selectedDelivery].name,
@@ -129,7 +138,7 @@ var cartApp = new Vue({
                 this.$http.put(url,this.mgnl_friendly_json, {headers: { 'Accept': 'application/json', "Content-Type": "application/json"},responseType: "json"}).then( function(response) {
                         if (response.status == 200) {
 
-                            var url2 = "http://www.ragbag.cz/.rest/commands/v2/sendMail";
+                            var url2 = this.domain+"/.rest/commands/v2/sendMail";
 
                             var emailData = {"mailTemplate":"ragbag-order","to":"ragbagcz@gmail.com;"+this.user.email,"order":this.mgnl_friendly_json.name,"data":allDataTogether};
 
@@ -159,7 +168,7 @@ var cartApp = new Vue({
 
         checkDiscount: function(){
 
-            var url = "http://www.ragbag.cz/.rest/nodes/v1/discountCodes/"+this.discountCode.toUpperCase();
+            var url = this.domain+"/.rest/nodes/v1/discountCodes/"+this.discountCode.toUpperCase();
 
             this.$http.get(url, {headers: { 'Accept': 'application/json', "Content-Type": "application/json"},responseType: "json"}).then( function(response) {
                 // success callback
